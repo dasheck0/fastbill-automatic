@@ -8,9 +8,9 @@ module Fastbill
       include Fastbill::Automatic::Services::Cancel
       include Fastbill::Automatic::Services::Getupcomingamount
 
-      attr_accessor :subscription_id, :customer_id, :subscription_ext_uid, :article_number, :customer_id,
-                    :coupon, :title, :unit_price, :currency_code, :next_event, :quantity, :description,
-                    :usage_date
+      attr_accessor :subscription_id, :customer_id, :subscription_title, :status, :subscription_ext_uid, :article_number, :customer_id,
+                    :coupon, :title, :unit_price, :currency_code, :next_event, :quantity, :description, :plan, :usage_date,
+                    :invoice_title, :addons
     end
   end
 end
