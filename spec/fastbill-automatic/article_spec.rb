@@ -20,7 +20,10 @@ describe Fastbill::Automatic::Article do
         :subscription_cancellation => '30 Day',
         :return_url_success => 'success',
         :return_url_cancel => 'cancel',
-        :checkout_url => 'checkout'
+        :checkout_url => 'checkout',
+        :tags => ['first', 'second'],
+        :translations => {},
+        :subscription_duration_follow => '6 Month'
     }
   end
 
@@ -47,12 +50,15 @@ describe Fastbill::Automatic::Article do
       expect(article.return_url_success).to eq('success')
       expect(article.return_url_cancel).to eq('cancel')
       expect(article.checkout_url).to eq('checkout')
+      expect(article.tags).to eq(['first', 'second'])
+      expect(article.translations).to eq({})
+      expect(article.subscription_duration_follow).to eq('6 Month')
     end
   end
 
   describe '.get' do
     it 'gets a specific article' do
-      expect(Fastbill::Automatic).to receive(:request).with('article.get', { :article_id => '123456' }).and_return("RESPONSE" => { "ARTICLES" => {}})
+      expect(Fastbill::Automatic).to receive(:request).with('article.get', {:article_id => '123456'}).and_return("RESPONSE" => {"ARTICLES" => {}})
       Fastbill::Automatic::Article.get(:article_id => '123456')
     end
   end
