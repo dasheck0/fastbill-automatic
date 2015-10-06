@@ -7,9 +7,9 @@ describe Fastbill::Automatic::Subscription do
         :subscription_id => '0',
         :customer_id => "0",
         :subscription_title => '',
-        :start => Time.now,
-        :next_event => Time.now,
-        :cancellation_date => Time.now,
+        :start => Time.new(2015, 10, 6),
+        :next_event => Time.new(2015, 11, 6),
+        :cancellation_date => Time.new(2016, 10, 6),
         :status => 'active',
         :article_number => '3',
         :quantity => '1',
@@ -23,9 +23,9 @@ describe Fastbill::Automatic::Subscription do
         },
         :subscription_ext_uid => 0,
         :invoice_title => 'Title',
-        :last_event => Time.now,
+        :last_event => Time.new(2015, 10, 6),
         :addons => [],
-        :expiration_date => Time.now
+        :expiration_date => Time.new(2016, 10, 6)
     }
   end
 
@@ -38,9 +38,9 @@ describe Fastbill::Automatic::Subscription do
       expect(subscription.subscription_id).to eq('0')
       expect(subscription.customer_id).to eq("0")
       expect(subscription.subscription_title).to eq('')
-      #expect(subscription.start).to eq(Time.now)
-      #expect(subscription.next_event).to eq(Time.now)
-      #expect(subscription.cancellation_date).to eq(Time.now)
+      expect(subscription.start).to be_within(0.5).of(Time.new(2015, 10, 6))
+      expect(subscription.next_event).to be_within(0.5).of(Time.new(2015, 11, 6))
+      expect(subscription.cancellation_date).to be_within(0.5).of(Time.new(2016, 10, 6))
       expect(subscription.status).to eq('active')
       expect(subscription.article_number).to eq('3')
       expect(subscription.quantity).to eq('1')
@@ -52,9 +52,9 @@ describe Fastbill::Automatic::Subscription do
       expect(subscription.plan[:vat_percent]).to eq(19.0)
       expect(subscription.subscription_ext_uid).to eq(0)
       expect(subscription.invoice_title).to eq('Title')
-      #expect(subscription.last_event).to eq(Time.now)
+      expect(subscription.last_event).to be_within(0.5).of(Time.new(2015, 10, 6))
       expect(subscription.addons).to eq([])
-      #expect(subscription.expiration_date).to eq(Time.now)
+      expect(subscription.expiration_date).to be_within(0.5).of(Time.new(2016, 10, 6))
     end
   end
 
