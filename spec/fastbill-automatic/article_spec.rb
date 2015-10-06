@@ -52,7 +52,7 @@ describe Fastbill::Automatic::Article do
 
   describe '.get' do
     it 'gets a specific article' do
-      Fastbill::Automatic.should_receive(:request).with('article.get', { :article_id => '123456' }).and_return("RESPONSE" => { "ARTICLES" => {}})
+      expect(Fastbill::Automatic).to receive(:request).with('article.get', { :article_id => '123456' }).and_return("RESPONSE" => { "ARTICLES" => {}})
       Fastbill::Automatic::Article.get(:article_id => '123456')
     end
   end
