@@ -17,7 +17,7 @@ module Fastbill
                     :affiliate, :country_code, :vat_id, :currency_code, :template_id, :subscription_id,
                     :subscription_invoice_counter, :invoice_number, :invoice_title, :introtext, :paid_date,
                     :is_canceled, :invoice_date, :due_date, :delivery_date, :cash_discount_percent, :cash_discount_days,
-                    :sub_total, :vat_total, :vat_items, :items, :total, :payment_info, :document_url, :paypal_url, :status
+                    :sub_total, :vat_total, :vat_items, :items, :outstanding_amount, :total, :payment_info, :document_url, :paypal_url, :status
 
       attr_reader   :remaining_credits
     end

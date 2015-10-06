@@ -37,6 +37,7 @@ describe Fastbill::Automatic::Invoice do
         :invoice_number => 1,
         :invoice_title => 'Ttitle',
         :introtext => 'Welcome ',
+        :outstanding_amount => 49.00,
         :paid_date => Time.new(2015, 10, 6),
         :is_canceled => false,
         :invoice_date => Time.new(2015, 10, 6),
@@ -94,6 +95,7 @@ describe Fastbill::Automatic::Invoice do
       expect(invoice.invoice_number).to eq(1)
       expect(invoice.invoice_title).to eq('Ttitle')
       expect(invoice.introtext).to eq('Welcome ')
+      expect(invoice.outstanding_amount).to eq(49.00)
       expect(invoice.paid_date).to eq(Time.new(2015, 10, 6))
       expect(invoice.is_canceled).to eq(false)
       expect(invoice.invoice_date).to eq(Time.new(2015, 10, 6))
