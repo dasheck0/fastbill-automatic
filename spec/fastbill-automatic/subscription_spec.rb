@@ -14,7 +14,6 @@ describe Fastbill::Automatic::Subscription do
         :hash => 'some salty hash',
         :x_attributes => {},
         :article_number => '3',
-        :quantity => '1',
         :plan => {
             :article_number => '3',
             :quatity => '1',
@@ -35,7 +34,23 @@ describe Fastbill::Automatic::Subscription do
         :invoice_title => 'Title',
         :last_event => Time.new(2015, 10, 6),
         :addons => [],
-        :expiration_date => Time.new(2016, 10, 6)
+        :expiration_date => Time.new(2016, 10, 6),
+        :invoice_id => 'invoice_id',
+        :paypal_url => 'paypal_url',
+        :usagedata_id => 'usage_id',
+        :created => Time.new(2015, 10, 7),
+        :usage_date => Time.new(2015, 10, 7),
+        :currency_code => 'EUR',
+        :description => 'description',
+        :unit_price => 40.00,
+        :article_id => 'id',
+        :quantity => '1',
+        :total => 1,
+        :addons_url => 'addons_url',
+        :cancel_url => 'cancel_url',
+        :reactivate_url => 'reactivate_url'
+
+
     }
   end
 
@@ -73,7 +88,23 @@ describe Fastbill::Automatic::Subscription do
       expect(subscription.expiration_date).to be_within(0.5).of(Time.new(2016, 10, 6))
       expect(subscription.hash).to eq('some salty hash')
       expect(subscription.x_attributes).to eq({})
+      expect(subscription.expiration_date).to eq(Time.new(2016, 10, 6))
+      expect(subscription.invoice_id).to eq('invoice_id')
+      expect(subscription.paypal_url).to eq('paypal_url')
+      expect(subscription.usagedata_id).to eq('usage_id')
+      expect(subscription.created).to eq(Time.new(2015, 10, 7))
+      expect(subscription.usage_date).to eq(Time.new(2015, 10, 7))
+      expect(subscription.currency_code).to eq('EUR')
+      expect(subscription.description).to eq('description')
+      expect(subscription.unit_price).to eq(40.00)
+      expect(subscription.article_id).to eq('id')
+      expect(subscription.total).to eq(1)
+      expect(subscription.addons_url).to eq('addons_url')
+      expect(subscription.cancel_url).to eq('cancel_url')
+      expect(subscription.reactivate_url).to eq('reactivate_url')
     end
   end
+
+  # TODO test read only
 
 end

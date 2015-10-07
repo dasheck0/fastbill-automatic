@@ -8,10 +8,12 @@ module Fastbill
       include Fastbill::Automatic::Services::Cancel
       include Fastbill::Automatic::Services::Getupcomingamount
 
-      attr_accessor :subscription_id, :customer_id, :subscription_title, :status, :subscription_ext_uid, :article_number, :customer_id,
-                    :coupon, :title, :unit_price, :currency_code, :next_event, :quantity, :description, :plan,
-                    :usage_date, :invoice_title, :addons, :start, :cancellation_date, :last_event, :expiration_date,
-                    :hash, :x_attributes, :plan_upcoming
+      attr_accessor :subscription_title, :status, :subscription_ext_uid, :article_number, :coupon, :title, :unit_price,
+                    :currency_code, :next_event, :quantity, :description, :plan, :usage_date, :invoice_title, :addons,
+                    :start, :cancellation_date, :last_event, :expiration_date, :hash, :x_attributes, :plan_upcoming,
+                    :paypal_url, :article_id, :total, :addons_url, :cancel_url, :reactivate_url
+
+      attr_reader :subscription_id, :customer_id, :invoice_id, :usagedata_id, :created
     end
   end
 end
