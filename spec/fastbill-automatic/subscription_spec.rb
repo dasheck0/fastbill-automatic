@@ -11,6 +11,8 @@ describe Fastbill::Automatic::Subscription do
         :next_event => Time.new(2015, 11, 6),
         :cancellation_date => Time.new(2016, 10, 6),
         :status => 'active',
+        :hash => 'some salty hash',
+        :x_attributes => {},
         :article_number => '3',
         :quantity => '1',
         :plan => {
@@ -55,6 +57,8 @@ describe Fastbill::Automatic::Subscription do
       expect(subscription.last_event).to be_within(0.5).of(Time.new(2015, 10, 6))
       expect(subscription.addons).to eq([])
       expect(subscription.expiration_date).to be_within(0.5).of(Time.new(2016, 10, 6))
+      expect(subscription.hash).to eq('some salty hash')
+      expect(subscription.x_attributes).to eq({})
     end
   end
 
