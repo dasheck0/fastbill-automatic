@@ -37,6 +37,7 @@ module Fastbill
       autoload :Setpaid,       "fastbill-automatic/services/setpaid"
       autoload :Setusagedata,  "fastbill-automatic/services/setusagedata"
       autoload :Getupcomingamount,  "fastbill-automatic/services/getupcomingamount"
+      autoload :Createsecurelink,  "fastbill-automatic/services/createsecurelink"
     end
 
     module Request
