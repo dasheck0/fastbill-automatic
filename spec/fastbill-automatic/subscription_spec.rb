@@ -23,6 +23,14 @@ describe Fastbill::Automatic::Subscription do
             :unit_price => 40.00,
             :vat_percent => 19.00
         },
+        :plan_upcoming => {
+            :article_number => '1',
+            :quatity => '1',
+            :title => 'Medium Plan',
+            :description => 'A meidum description',
+            :unit_price => 80.00,
+            :vat_percent => 29.00
+        },
         :subscription_ext_uid => 0,
         :invoice_title => 'Title',
         :last_event => Time.new(2015, 10, 6),
@@ -52,6 +60,12 @@ describe Fastbill::Automatic::Subscription do
       expect(subscription.plan[:description]).to eq('A small description')
       expect(subscription.plan[:unit_price]).to eq(40.00)
       expect(subscription.plan[:vat_percent]).to eq(19.0)
+      expect(subscription.plan_upcoming[:article_number]).to eq('1')
+      expect(subscription.plan_upcoming[:quatity]).to eq('1')
+      expect(subscription.plan_upcoming[:title]).to eq('Medium Plan')
+      expect(subscription.plan_upcoming[:description]).to eq('A meidum description')
+      expect(subscription.plan_upcoming[:unit_price]).to eq(80.00)
+      expect(subscription.plan_upcoming[:vat_percent]).to eq(29.0)
       expect(subscription.subscription_ext_uid).to eq(0)
       expect(subscription.invoice_title).to eq('Title')
       expect(subscription.last_event).to be_within(0.5).of(Time.new(2015, 10, 6))
