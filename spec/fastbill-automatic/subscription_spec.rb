@@ -107,4 +107,115 @@ describe Fastbill::Automatic::Subscription do
 
   # TODO test read only
 
+  describe '.update' do
+    it 'sends the request' do
+      attrs = {
+          :next_event => Time.new(2015, 10, 20),
+          :subscription_ext_uid => 'some external uid',
+          :status => 'inactive',
+          :x_attributes => {
+              :key => 'notice1',
+              :value => 'Never paid'
+          },
+          :features => {
+              :code => 'Some code',
+              :quantity => 1,
+              :value => 'value'
+          }
+      }
+
+      expect(Fastbill::Automatic).to receive(:request).with('subscription.update', attrs).and_return('RESPONSE' => {'STATUS' => 'success'})
+      Fastbill::Automatic::Subscription.update_attributes('123456', attrs)
+    end
+  end
+
+  describe '.changearticle' do
+    it 'sends the request' do
+      attrs = {
+          :subscription_id => '123456',
+          :quantity => 1,
+          :article_number => '3',
+          :title => 'Addon title',
+          :description => 'A small description',
+          :unit_price => 49.99,
+          :currency_code => 'EUR',
+          :reset_addons => 1, # 0 = false, 1 = true
+          :coupon => 'coupon',
+          :addons => {
+              :article_number => '3',
+              :quantity => 1,
+              :title => 'Addon title',
+              :unit_price => 49.99,
+              :description => 'A small description',
+              :vat_percent => 19.00
+          },
+          :features => {
+              :code => 'Some code',
+              :quantity => 1,
+              :value => 'value'
+          },
+          :suppress_mail => 1
+      }
+
+      expect(Fastbill::Automatic).to receive(:request).with('subscription.changearticle', attrs).and_return('RESPONSE' => {'STATUS' => 'success', 'SUBSCRIPTION_ID' => 1})
+      Fastbill::Automatic::Subscription.changearticle(attrs)
+    end
+  end
+
+  describe '.setaddon' do
+    it 'sends the request' do
+      attrs = {
+          :subscription_id => '123456',
+          :article_number => '3',
+          :quantity => 1,
+          :title => 'Addon title',
+          :unit_price => 49.99,
+          :description => 'A small description'
+      }
+      expect(Fastbill::Automatic).to receive(:request).with('subscription.setaddon', attrs).and_return('RESPONSE' => {'STATUS' => 'success'})
+      Fastbill::Automatic::Subscription.setaddon(attrs)
+    end
+  end
+
+  describe '.setusagedata' do
+    it 'sends the request' do
+      attrs = {
+          :subscription_id => '123456',
+          :article_number => '3',
+          :quantity => 1,
+          :unit_price => 49.99,
+          :description => 'A small description',
+          :usage_date => Time.new(2015, 10, 7),
+          :currency_code => 'EUR'}
+
+      expect(Fastbill::Automatic).to receive(:request).with('subscription.setusagedata', attrs).and_return('RESPONSE' => {'STATUS' => 'success', "USAGEDATA_ID" => 0})
+      Fastbill::Automatic::Subscription.setusagedata(attrs)
+    end
+  end
+
+  describe '.cancel' do
+    it 'sends the request' do
+      expect(Fastbill::Automatic).to receive(:request).with('subscription.cancel', {subscription_id: '123456'}).and_return('RESPONSE' => {'STATUS' => 'success'})
+      Fastbill::Automatic::Subscription.cancel('123456')
+    end
+  end
+
+  describe '.getupcompingamount' do
+
+  end
+
+  describe '.renew' do
+    it 'sends the request' do
+      expect(Fastbill::Automatic).to receive(:request).with('subscription.renew', {subscription_id: '123456'}).and_return('RESPONSE' => {'STATUS' => 'success'})
+      Fastbill::Automatic::Subscription.renew('123456')
+    end
+  end
+
+  describe '.createsecurelink' do
+    it 'sends the request' do
+      expect(Fastbill::Automatic).to receive(:request).with('subscription.createsecurelink', {subscription_id: '123456'}).and_return('RESPONSE' => {'addons_url' => "addons_url", 'reactivate_url' => 'reactivate_url', 'cancel_url' => 'cancel_url'})
+      Fastbill::Automatic::Subscription.createsecurelink('123456')
+    end
+  end
+
 end

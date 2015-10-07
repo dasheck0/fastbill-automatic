@@ -8,6 +8,7 @@ module Fastbill
       include Fastbill::Automatic::Services::Cancel
       include Fastbill::Automatic::Services::Getupcomingamount
       include Fastbill::Automatic::Services::Createsecurelink
+      include Fastbill::Automatic::Services::Renew
 
       attr_accessor :subscription_title, :status, :subscription_ext_uid, :article_number, :coupon, :title, :unit_price,
                     :currency_code, :next_event, :quantity, :description, :plan, :usage_date, :invoice_title, :addons,

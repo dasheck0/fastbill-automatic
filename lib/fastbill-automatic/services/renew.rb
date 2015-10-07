@@ -1,14 +1,15 @@
 module Fastbill
   module Automatic
     module Services
-      module Cancel
+      module Renew
         module ClassMethods
 
-          def cancel(id)
-            id_attribute = "#{self.name.split("::").last.downcase}_id".to_sym
+          def renew(id)
+            id_attribute = "#{self.name.split('::').last.downcase}_id".to_sym
             attributes = {}
             attributes[id_attribute] = id
-            Fastbill::Automatic.request("#{self.name.split("::").last.downcase}.cancel", attributes)
+            response = Fastbill::Automatic.request("#{self.name.split('::').last.downcase}.renew", attributes)
+            self.new(response["RESPONSE"])
           end
         end
 
