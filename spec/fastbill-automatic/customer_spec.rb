@@ -64,7 +64,8 @@ describe Fastbill::Automatic::Customer do
         expire_month: '06',
         expire_year: '2016',
         card_number: 'xxxx-xxxx-xxxx-1111',
-        credit_balance: '0,00'
+        credit_balance: '0,00',
+        accountdata_url: 'some account data url'
     }
   end
 
@@ -135,12 +136,28 @@ describe Fastbill::Automatic::Customer do
       expect(customer.expire_year).to eq('2016')
       expect(customer.card_number).to eq('xxxx-xxxx-xxxx-1111')
       expect(customer.credit_balance).to eq('0,00')
+      expect(customer.accountdata_url).to eq('some account data url')
+    end
+  end
+
+  describe 'attr_reader' do
+    it 'some values should be read only' do
+      expect { customer.customer_id = 10 }.to raise_error(NoMethodError)
+      expect { customer.dashboard_url = 10 }.to raise_error(NoMethodError)
+      expect { customer.changedata_url = 10 }.to raise_error(NoMethodError)
+      expect { customer.status = 10 }.to raise_error(NoMethodError)
+      expect { customer.created = 10 }.to raise_error(NoMethodError)
+      expect { customer.last_update = 10 }.to raise_error(NoMethodError)
+      expect { customer.credit_balance = 10 }.to raise_error(NoMethodError)
+      expect { customer.hash = 10 }.to raise_error(NoMethodError)
+      expect { customer.accountdata_ur = 10 }.to raise_error(NoMethodError)
     end
   end
 
   describe ".get" do
     it "gets a specific customer" do
-      expect(Fastbill::Automatic).to receive(:request).with("customer.get", {customer_id: "123456"}).and_return("RESPONSE" => {"CUSTOMERS" => {}})
+      expect(Fastbill::Automatic).to receive(:request).with("customer.get",
+                                                            {customer_id: "123456"}).and_return("RESPONSE" => {"CUSTOMERS" => {}})
       Fastbill::Automatic::Customer.get(customer_id: "123456")
     end
   end

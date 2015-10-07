@@ -52,7 +52,13 @@ describe Fastbill::Automatic::Invoice do
         :total => 58.18,
         :payment_info => 'nothing',
         :document_url => 'https://document.url',
-        :paypal_url => 'https://paypal.url'
+        :paypal_url => 'https://paypal.url',
+        :invoice_ext_id => 'ext id',
+        :remaining_credits => 0,
+        :dunning_level => 'max',
+        :dunning_fee => 99.99,
+        :dunning_date => Time.new(2015, 1, 1)
+
     }
   end
 
@@ -111,6 +117,11 @@ describe Fastbill::Automatic::Invoice do
       expect(invoice.payment_info).to eq('nothing')
       expect(invoice.document_url).to eq('https://document.url')
       expect(invoice.paypal_url).to eq('https://paypal.url')
+      expect(invoice.invoice_ext_id).to eq('ext id')
+      expect(invoice.remaining_credits).to eq(0)
+      expect(invoice.dunning_level).to eq('max')
+      expect(invoice.dunning_fee).to eq(99.99)
+      expect(invoice.dunning_date).to eq(Time.new(2015, 1, 1))
     end
   end
 

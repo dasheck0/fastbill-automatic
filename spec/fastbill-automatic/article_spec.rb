@@ -23,7 +23,9 @@ describe Fastbill::Automatic::Article do
         :checkout_url => 'checkout',
         :tags => ['first', 'second'],
         :translations => {},
-        :subscription_duration_follow => '6 Month'
+        :subscription_duration_follow => '6 Month',
+        :features => { :some => 'feature'},
+        :transition => 'transition'
     }
   end
 
@@ -53,6 +55,8 @@ describe Fastbill::Automatic::Article do
       expect(article.tags).to eq(['first', 'second'])
       expect(article.translations).to eq({})
       expect(article.subscription_duration_follow).to eq('6 Month')
+      expect(article.features).to eq({ :some => 'feature' })
+      expect(article.transition).to eq('transition')
     end
   end
 
