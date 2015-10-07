@@ -19,4 +19,3 @@ module Fastbill
     end
   end
 end
-dd
