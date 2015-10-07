@@ -36,6 +36,7 @@ module Fastbill
       autoload :Setaddon,      "fastbill-automatic/services/setaddon"
       autoload :Setpaid,       "fastbill-automatic/services/setpaid"
       autoload :Setusagedata,  "fastbill-automatic/services/setusagedata"
+      autoload :Getusagedata,  "fastbill-automatic/services/getusagedata"
       autoload :Getupcomingamount,  "fastbill-automatic/services/getupcomingamount"
       autoload :Createsecurelink,  "fastbill-automatic/services/createsecurelink"
       autoload :Renew,  "fastbill-automatic/services/renew"
