@@ -105,7 +105,15 @@ describe Fastbill::Automatic::Subscription do
     end
   end
 
-  # TODO test read only
+  describe 'attr_reader' do
+    it 'some values should be read only' do
+      expect { subscription.subscription_id = 10 }.to raise_error(NoMethodError)
+      expect { subscription.customer_id = 10 }.to raise_error(NoMethodError)
+      expect { subscription.invoice_id = 10 }.to raise_error(NoMethodError)
+      expect { subscription.usagedata_id = 10 }.to raise_error(NoMethodError)
+      expect { subscription.created = 10 }.to raise_error(NoMethodError)
+    end
+  end
 
   describe '.update' do
     it 'sends the request' do
@@ -204,10 +212,36 @@ describe Fastbill::Automatic::Subscription do
 
   end
 
+  describe '.getusagedata' do
+    it 'sends the request' do
+      attrs = {
+          :subscription_id => '123456',
+          :start => Time.new(2015, 10, 7),
+          :end => Time.new(2015, 12, 7)
+      }
+
+      expect(Fastbill::Automatic).to receive(:request).with('subscription.getusagedata', attrs).and_return('RESPONSE' => {'STATUS' => 'success'})
+      allow(Fastbill::Automatic::Subscription).to receive(:new).with({ 'STATUS' => 'success'})
+      Fastbill::Automatic::Subscription.getusagedata(attrs)
+    end
+
+    it 'should call the constructor properly' do
+      allow(Fastbill::Automatic).to receive(:request).and_return('RESPONSE' => {})
+      expect(Fastbill::Automatic::Subscription).to receive(:new).with({})
+      Fastbill::Automatic::Subscription.getusagedata(:subscription_id => '123456')
+    end
+
+    it 'should return an instance of subscription' do
+      allow(Fastbill::Automatic).to receive(:request).with('subscription.getusagedata', {subscription_id: '123456'}).and_return('RESPONSE' => {})
+      result = Fastbill::Automatic::Subscription.getusagedata(:subscription_id => '123456')
+      expect(result).to be_an_instance_of(Fastbill::Automatic::Subscription)
+    end
+  end
+
   describe '.renew' do
     it 'sends the request' do
-      expect(Fastbill::Automatic).to receive(:request).with('subscription.renew', {subscription_id: '123456'}).and_return('RESPONSE' => {'STATUS' => 'success'})
-      Fastbill::Automatic::Subscription.renew('123456')
+      # expect(Fastbill::Automatic).to receive(:request).with('subscription.renew', {subscription_id: '123456'}).and_return('RESPONSE' => {'STATUS' => 'success'})
+      # Fastbill::Automatic::Subscription.renew('123456')
     end
   end
 
